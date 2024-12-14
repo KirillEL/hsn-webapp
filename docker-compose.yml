@@ -2,10 +2,22 @@ version: '3.7'
 
 services:
 
+  nginx_local_dev_proxy:
+    container_name: nginx-local-dev-proxy
+    image: nginx:1.21.3
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
+        mode: host
+    volumes:
+      - ".nginx/nginx.conf:/etc/nginx/nginx.conf"
+    command: [nginx-debug ,"-g", "daemon off;"]
+
   hsn_api:
     build:
       context: .
-      dockerfile: ./hsn-api/.docker/api/Dockerfile
+      dockerfile: hsn-api/.docker/api/Dockerfile
     container_name: hsn_api
     hostname: hsn_api
     command: /bin/sh -c "cd hsn-api/ && uvicorn api.api_server:app --host 0.0.0.0 --port 9999 --reload"
@@ -27,7 +39,7 @@ services:
   registr-frontend:
     build:
       context: .
-      dockerfile: ./registr-front/Dockerfile 
+      dockerfile: registr-front/Dockerfile 
     container_name: frontend
     hostname: frontend
     ports:
