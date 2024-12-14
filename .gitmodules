@@ -1,0 +1,7 @@
+[submodule "hsn_api"]
+	path=hsn-api
+	url=https://github.com/KirillEL/hsn-api
+
+[submodule "registr-front"]
+	path=registr-front
+	url=https://github.com/Calorific/registr-front
