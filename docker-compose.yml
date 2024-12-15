@@ -13,6 +13,9 @@ services:
     volumes:
       - ".nginx/nginx.conf:/etc/nginx/nginx.conf"
     command: [nginx-debug ,"-g", "daemon off;"]
+    networks:
+      - hsn_network    
+
 
   hsn_api:
     build:
@@ -36,7 +39,7 @@ services:
       - './hsn-api/logs:/app/logs'
 
 
-  registr-frontend:
+  frontend:
     build:
       context: .
       dockerfile: registr-front/Dockerfile 
